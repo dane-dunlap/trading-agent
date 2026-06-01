@@ -1,0 +1,25 @@
+{
+  "watchlist": [
+    {
+      "symbol": "SPY",
+      "description": "S&P 500 ETF baseline market exposure",
+      "max_allocation_pct": 15
+    },
+    {
+      "symbol": "NVDA",
+      "description": "GPU/AI infrastructure high conviction holding",
+      "max_allocation_pct": 8
+    },
+    {
+      "symbol": "AAPL",
+      "description": "Large-cap tech, stable liquidity",
+      "max_allocation_pct": 8
+    },
+    {
+      "symbol": "MSFT",
+      "description": "Cloud + AI platform exposure",
+      "max_allocation_pct": 8
+    }
+  ],
+  "cash_reserve_pct": 20
+}
