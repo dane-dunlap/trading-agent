@@ -9,6 +9,7 @@ Usage:
 import os
 import sys
 import json
+from datetime import datetime, timedelta, timezone
 
 import requests
 
@@ -25,10 +26,22 @@ def _headers():
     }
 
 
-def get_bars(symbol, timeframe="1Day", limit=60):
-    """Fetch historical price bars for a symbol."""
+def get_bars(symbol, timeframe="1Day", limit=120):
+    """Fetch historical price bars for a symbol.
+
+    Alpaca defaults the window to the current day when `start` is omitted, which
+    returns only a single bar. We pass an explicit `start` ~180 calendar days back
+    so there are enough trading days (>=50) to compute the moving averages.
+    """
+    start = (datetime.now(timezone.utc) - timedelta(days=180)).strftime("%Y-%m-%d")
     url = f"{DATA_URL}/v2/stocks/{symbol}/bars"
-    params = {"timeframe": timeframe, "limit": limit, "adjustment": "raw"}
+    params = {
+        "timeframe": timeframe,
+        "start": start,
+        "limit": limit,
+        "adjustment": "raw",
+        "sort": "asc",
+    }
     response = requests.get(url, headers=_headers(), params=params)
     return response.json()
 
